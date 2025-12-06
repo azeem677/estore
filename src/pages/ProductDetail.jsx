@@ -8,7 +8,7 @@ export default function ProductDetail() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.items);
 
-  const product = products.find((p) => p.id === id);
+  const product = products.find((p) => p.id === parseInt(id));
 
   if (!product) {
     return (

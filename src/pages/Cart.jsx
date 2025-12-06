@@ -63,7 +63,7 @@ export default function Cart() {
     console.log("Sending order data:", dataToSend);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/carts", dataToSend);
+      const res = await axios.post("https://fakestoreapi.com/carts", dataToSend);
       alert("Order placed successfully!");
       console.log(res.data);
       setOrderPlaced(true);
