@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../features/authSlice";
 import { useNavigate } from "react-router-dom";
 
-export default function AdminLogin() {
+export default function   AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
