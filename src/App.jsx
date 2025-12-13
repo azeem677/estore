@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminLogin from "./pages/AdminLogin";
@@ -13,26 +13,19 @@ import Users from "./pages/Dashboard/Users";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
+      {/* Global navbar rendered on all routes */}
+      <Navbar />
+
       <Routes>
         {/* Admin Login Route */}
         <Route path="/admin-login" element={<AdminLogin />} />
 
-        {/* Main Site Routes */}
-        <Route
-          path="/*"
-          element={
-            <>
-              <Navbar />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/product/:id" element={<ProductDetail />} />
-                <Route path="/cart" element={<Cart />} />
-              </Routes>
-            </>
-          }
-        />
+        {/* Public site routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/cart" element={<Cart />} />
 
         {/* Protected Dashboard Routes */}
         <Route
@@ -67,7 +60,13 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* Unprotected test route */}
+        <Route path="/dashboard/test" element={<AdminHome />} />
+
+        {/* Catch-all client-side 404 page */}
+        <Route path="*" element={<div className="p-6">Page not found (client-side). <a href="#/">Go home</a></div>} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
