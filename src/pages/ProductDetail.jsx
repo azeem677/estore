@@ -8,7 +8,8 @@ export default function ProductDetail() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.items);
 
-  const product = products.find((p) => p.id === parseInt(id));
+  // IDs from local API are strings (_id), so compare as strings
+  const product = products.find((p) => p.id === id);
 
   if (!product) {
     return (

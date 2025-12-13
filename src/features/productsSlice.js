@@ -4,15 +4,16 @@ import axios from "axios";
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
-    const res = await axios.get("https://fakestoreapi.com/products");
-    // Transform API response to match app structure
+    // Fetch from local API
+    const res = await axios.get("http://localhost:5000/api/products");
+    // Transform API response to match app structure (local API returns _id, name, picture)
     const transformedData = res.data.map((product) => ({
-      id: product.id,
-      title: product.title,
+      id: product._id,
+      title: product.name,
       price: product.price,
-      image: product.image,
+      image: product.picture ? `http://localhost:5000/${product.picture}` : null,
       category: product.category || "uncategorized",
-      description: product.description || product.title,
+      description: product.description || product.name,
     }));
     return transformedData;
   }

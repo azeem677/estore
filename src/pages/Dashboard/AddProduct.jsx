@@ -44,22 +44,23 @@ export default function AddProduct() {
     setLoading(true);
 
     try {
-      // FakeStore API doesn't support file uploads, so we create a product object
-      // In real scenario, you'd handle image uploads differently
-      const productData = {
-        title: formData.name,
-        price: parseFloat(formData.price),
-        description: formData.description,
-        category: formData.category || "electronics",
-        image: "https://via.placeholder.com/400?text=" + encodeURIComponent(formData.name),
-      };
+      // Prepare FormData for local API (supports image upload)
+      const form = new FormData();
+      form.append("name", formData.name);
+      form.append("price", formData.price);
+      form.append("category", formData.category || "uncategorized");
+      form.append("description", formData.description);
+      form.append("picture", formData.image);
 
-      // Send to FakeStore API
-      const response = await axios.post("https://fakestoreapi.com/products", productData);
+      const response = await axios.post("http://localhost:5000/api/products", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       alert("Product added successfully!");
       console.log("Product created:", response.data);
-      
+
       // Reset form
       setFormData({ name: "", price: "", category: "", description: "", image: null });
       setPreview(null);
