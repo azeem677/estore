@@ -19,9 +19,15 @@ export default function Navbar() {
       </button>
 
       {/* Desktop Menu */}
-      <div className="hidden md:flex gap-6">
+      <div className="hidden md:flex items-center gap-6">
         <Link to="/products" className="hover:underline">Products</Link>
         <Link to="/cart" className="hover:underline">Cart ({count})</Link>
+        <Link
+          to="/admin-login"
+          className="ml-2 bg-white text-black px-3 py-1 rounded hover:opacity-90 text-sm"
+        >
+          Admin Login
+        </Link>
       </div>
 
       {/* Mobile Menu */}
@@ -29,6 +35,7 @@ export default function Navbar() {
         <div className="absolute top-16 left-0 right-0 bg-blue-600 p-4 md:hidden flex flex-col gap-4">
           <Link to="/products" onClick={() => setMenuOpen(false)}>Products</Link>
           <Link to="/cart" onClick={() => setMenuOpen(false)}>Cart ({count})</Link>
+          <Link to="/admin-login" onClick={() => setMenuOpen(false)} className="mt-2 bg-white text-black px-3 py-1 rounded w-max">Admin Login</Link>
         </div>
       )}
     </nav>
